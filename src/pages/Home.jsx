@@ -1,7 +1,7 @@
 import React from "react";
 
 import Helmet from "../components/Helmet/Helmet.js";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 
 import heroImg from "../assets/images/hero.png";
 import "../styles/hero-section.css";
@@ -13,6 +13,17 @@ import "../styles/home.css";
 import featureImg01 from "../assets/images/service-01.png";
 import featureImg02 from "../assets/images/service-02.png";
 import featureImg03 from "../assets/images/service-03.png";
+
+import products from "../assets/fake-data/products.js";
+
+import foodCategoryImg01 from "../assets/images/hamburger.png";
+import foodCategoryImg02 from "../assets/images/pizza.png";
+import foodCategoryImg03 from "../assets/images/bread.png";
+
+import ProductCard from "../components/UI/product-card/ProductCard.jsx";
+import { useEffect, useState } from "react";
+
+import whyImg from "../assets/images/location.png";
 
 const featureData = [
   {
@@ -33,6 +44,36 @@ const featureData = [
 ];
 
 const Home = () => {
+  const [category, setCategory] = useState("ALL");
+  const [allProducts, seeAllProducts] = useState(products);
+
+  useEffect(() => {
+    if (category === "ALL") {
+      seeAllProducts(products);
+    }
+
+    if (category === "BURGER") {
+      const filterProducts = products.filter(
+        (item) => item.category === "Burger"
+      );
+      seeAllProducts(filterProducts);
+    }
+
+    if (category === "PIZZA") {
+      const filterProducts = products.filter(
+        (item) => item.category === "Pizza"
+      );
+      seeAllProducts(filterProducts);
+    }
+
+    if (category === "BREAD") {
+      const filterProducts = products.filter(
+        (item) => item.category === "Bread"
+      );
+      seeAllProducts(filterProducts);
+    }
+  }, [category]);
+
   return (
     <Helmet title="Home">
       <section>
@@ -105,18 +146,136 @@ const Home = () => {
               </p>
             </Col>
             {featureData.map((item, index) => (
-              <Col lg="4" md="4" key={index}>
-                <div className="feature__item">
-                  
+              <Col lg="4" md="4" key={index} className="mt-5">
+                <div className="feature__item text-center px-5 py-3">
+                  <img
+                    className="w-25 mb-3"
+                    src={item.imgUrl}
+                    alt="feature-img"
+                  />
+                  <h5 className="fw-bold mb-3">{item.title}</h5>
+                  <p>{item.desc}</p>
                 </div>
               </Col>
             ))}
-
-            <Col lg="4" md="4"></Col>
-            <Col lg="4" md="4"></Col>
           </Row>
         </Container>
       </section>
+
+      <section>
+        <Container>
+          <Row>
+            <Col lg="12" className="text-center">
+              <h2>Popular Foods</h2>
+            </Col>
+
+            <Col lg="12">
+              <div className="food__category d-flex align-items-center gap-5 justify-content-center">
+                <button
+                  className={`all__btn ${
+                    category === "ALL" ? "foodBtnActive" : ""
+                  }`}
+                  onClick={() => setCategory("ALL")}
+                >
+                  All
+                </button>
+                <button
+                  onClick={() => setCategory("BURGER")}
+                  className={`d-flex align-items-center gap-2 ${
+                    category === "BURGER" ? "foodBtnActive" : ""
+                  }`}
+                >
+                  <img src={foodCategoryImg01} alt="" />
+                  Burger
+                </button>
+                <button
+                  onClick={() => setCategory("PIZZA")}
+                  className={`d-flex align-items-center gap-2 ${
+                    category === "PIZZA" ? "foodBtnActive" : ""
+                  }`}
+                >
+                  <img src={foodCategoryImg02} alt="" />
+                  Pizza
+                </button>
+                <button
+                  onClick={() => setCategory("BREAD")}
+                  className={`d-flex align-items-center gap-2 ${
+                    category === "BREAD" ? "foodBtnActive" : ""
+                  }`}
+                >
+                  <img src={foodCategoryImg03} alt="" />
+                  Bread
+                </button>
+              </div>
+            </Col>
+            {allProducts.map((item) => (
+              <Col lg="3" md="4" key={item.id} className="mt-5">
+                <ProductCard item={item} />
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
+
+      <section>
+        <Container>
+          <Row>
+            <Col lg="6" md="6">
+              <img src={whyImg} alt="why-tasty-treat" className="w-100" />
+            </Col>
+            <Col lg="6" md="6">
+              <div className="why__tasty-treat">
+                <h2 className="tasty__treat-title mb-4">
+                  Why <span>Tasty Treat?</span>
+                </h2>
+                <p className="testy__treat-desc">
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia
+                  laboriosam fugiat, cupiditate ducimus alias vero amet facilis
+                  aspernatur laborum veniam nihil saepe natus odit explicabo
+                  accusamus repellat. Maxime, molestias sed?
+                </p>
+                <ListGroup className="mt-5">
+                  <ListGroupItem className="border-0 ps-0">
+                    <p className="choose__us-title d-flex align-items-center gap-2">
+                      <i class="ri-checkbox-circle-line"></i>
+                      Fresh and tasty foods
+                    </p>
+                    <p className="choose__us-desc">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Illo, dicta?
+                    </p>
+                  </ListGroupItem>
+
+                  <ListGroupItem className="border-0 ps-0">
+                    <p className="choose__us-title d-flex align-items-center gap-2">
+                      <i class="ri-checkbox-circle-line"></i>
+                      Quality support
+                    </p>
+                    <p className="choose__us-desc">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Illo, dicta?
+                    </p>
+                  </ListGroupItem>
+
+                  <ListGroupItem className="border-0 ps-0">
+                    <p className="choose__us-title d-flex align-items-center gap-2">
+                      <i class="ri-checkbox-circle-line"></i>
+                      Order from any location
+                    </p>
+                    <p className="choose__us-desc">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Illo, dicta?
+                    </p>
+                  </ListGroupItem>
+                </ListGroup>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+
+
+      
     </Helmet>
   );
 };
