@@ -25,6 +25,10 @@ import { useEffect, useState } from "react";
 
 import whyImg from "../assets/images/location.png";
 
+import networkImg from "../assets/images/network.png";
+
+import TestimonialSlider from "../components/UI/slider/TestimonialSlider.jsx";
+
 const featureData = [
   {
     title: "Quick Delivery",
@@ -47,6 +51,14 @@ const Home = () => {
   const [category, setCategory] = useState("ALL");
   const [allProducts, seeAllProducts] = useState(products);
 
+  const [hotPizza, setHotPizza] = useState([]);
+
+  useEffect(() => {
+    const filterPizza = products.filter((item) => (item.category === "Pizza"));
+    const slicePizza = filterPizza.slice(0, 4);
+    setHotPizza(slicePizza);
+  }, []);
+
   useEffect(() => {
     if (category === "ALL") {
       seeAllProducts(products);
@@ -57,6 +69,7 @@ const Home = () => {
         (item) => item.category === "Burger"
       );
       seeAllProducts(filterProducts);
+      console.log("Burger active");
     }
 
     if (category === "PIZZA") {
@@ -146,7 +159,7 @@ const Home = () => {
               </p>
             </Col>
             {featureData.map((item, index) => (
-              <Col lg="4" md="4" key={index} className="mt-5">
+              <Col lg="4" md="6" sm="6" key={index} className="mt-5">
                 <div className="feature__item text-center px-5 py-3">
                   <img
                     className="w-25 mb-3"
@@ -170,7 +183,7 @@ const Home = () => {
             </Col>
 
             <Col lg="12">
-              <div className="food__category d-flex align-items-center gap-5 justify-content-center">
+              <div className="food__category d-flex align-items-center gap-4 justify-content-center">
                 <button
                   className={`all__btn ${
                     category === "ALL" ? "foodBtnActive" : ""
@@ -209,7 +222,7 @@ const Home = () => {
               </div>
             </Col>
             {allProducts.map((item) => (
-              <Col lg="3" md="4" key={item.id} className="mt-5">
+              <Col lg="3" md="4" sm="6" xs='6' key={item.id} className="mt-5">
                 <ProductCard item={item} />
               </Col>
             ))}
@@ -217,7 +230,7 @@ const Home = () => {
         </Container>
       </section>
 
-      <section>
+      <section className="why__choose-us">
         <Container>
           <Row>
             <Col lg="6" md="6">
@@ -234,7 +247,7 @@ const Home = () => {
                   aspernatur laborum veniam nihil saepe natus odit explicabo
                   accusamus repellat. Maxime, molestias sed?
                 </p>
-                <ListGroup className="mt-5">
+                <ListGroup className="mt-4">
                   <ListGroupItem className="border-0 ps-0">
                     <p className="choose__us-title d-flex align-items-center gap-2">
                       <i class="ri-checkbox-circle-line"></i>
@@ -274,8 +287,45 @@ const Home = () => {
         </Container>
       </section>
 
+      <section className="pt-0">
+        <Container>
+          <Row>
+            <Col lg="12" className="text-center mb-5">
+              <h2>Hot Pizza</h2>
+            </Col>
+            {hotPizza.map((item) => (
+              <Col lg="3" md="4" key={item.id}>
+                <ProductCard item={item} />
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
 
-      
+      <section>
+        <Container>
+          <Row>
+            <Col lg="6" md="6">
+              <div className="testimonial">
+                <h5 className="testimonial__subtitle mb-4">Testimonial</h5>
+                <h2 className="testimonial__title mb-4">
+                  What our <span>customers</span> are saying
+                </h2>
+                <p className="testimonial__decs">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Recusandae porro nisi officia labore soluta repudiandae
+                  quaerat cumque dolore quod dicta!
+                </p>
+
+                <TestimonialSlider />
+              </div>
+            </Col>
+            <Col lg="6" md="6">
+              <img src={networkImg} alt="network-img" className="w-100" />
+            </Col>
+          </Row>
+        </Container>
+      </section>
     </Helmet>
   );
 };
