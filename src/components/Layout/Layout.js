@@ -1,21 +1,26 @@
+import React from "react";
 
+import Header from "../Header/Header.jsx";
+import Footer from "../Footer/Footer.jsx";
+import Routes from "../../routes/Routers";
 
-import React from 'react'
+import Carts from "../UI/cart/Carts.jsx";
+import { useSelector } from "react-redux";
 
-import Header from '../Header/Header.jsx'
-import Footer from '../Footer/Footer.jsx'
-import Routes from '../../routes/Routers'
-
-const layout = () => {
+const Layout = () => {
+  const showCart = useSelector((state) => state.cartUi.cartIsVisiable);
   return (
     <div>
-        <Header/>
-        <div>
-            <Routes/>
-        </div>
-        <Footer/>
-    </div>
-  )
-}
+      <Header />
 
-export default layout
+      {showCart && <Carts />}
+
+      <div>
+        <Routes />
+      </div>
+      <Footer />
+    </div>
+  );
+};
+
+export default Layout;
