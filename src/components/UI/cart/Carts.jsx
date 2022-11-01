@@ -12,7 +12,7 @@ import { cartUiActions } from "../../../store/shopping-cart/CartUiSlice";
 const Carts = () => {
   const dispatch = useDispatch();
   const cartProducts = useSelector((state) => state.cart.cartItems);
-  
+
   const subtotalAmount = useSelector((state) => state.cart.totalAmount);
 
   const toggleCart = () => {
