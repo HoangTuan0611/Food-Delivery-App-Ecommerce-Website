@@ -22,10 +22,6 @@ const nav__links = [
     display: "Cart",
     path: "/cart",
   },
-  {
-    display: "Contact",
-    path: "/contact",
-  },
 ];
 
 const Header = () => {
@@ -35,7 +31,7 @@ const Header = () => {
 
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
 
-  const reduxState = useSelector(state=>state)
+  const reduxState = useSelector((state) => state);
   console.log(reduxState);
 
   const dispatch = useDispatch();
@@ -66,8 +62,10 @@ const Header = () => {
       <Container>
         <div className="nav__wrapper d-flex align-items-center justify-content-between">
           <div className="logo">
-            <img src={logo} alt="logo" />
-            <h5>Tasty Treat</h5>
+            <Link to='/home'>
+              <img src={logo} alt="logo" />
+              <h5>Tasty Treat</h5>
+            </Link>
           </div>
 
           {/* ======== menu ====== */}
