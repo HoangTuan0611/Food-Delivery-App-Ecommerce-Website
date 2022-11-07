@@ -29,6 +29,8 @@ import networkImg from "../assets/images/network.png";
 
 import TestimonialSlider from "../components/UI/slider/TestimonialSlider.jsx";
 
+import { reviuu } from "../assets/fake-data/reviu.js";
+
 const featureData = [
   {
     title: "Quick Delivery",
@@ -48,15 +50,65 @@ const featureData = [
 ];
 
 const Home = () => {
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   fetch("https://pokeapi.co/api/v2/pokemon/ditto")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       //console.log(data);
+  //       setTimeout(() => {
+  //         setIsLoading(false);
+  //       }, 1000);
+  //       // const filterRiviu = data.slice(0, 4);
+  //       // console.log("AAAAAAAAAAAAAA" + filterRiviu);
+  //       // let arrRiviu = [];
+  //       // filterRiviu.forEach((item) => {
+  //       //   let tem = {
+  //       //     id: item.uuid,
+  //       //     title: item.title,
+  //       //     image01: item.comment_count,
+  //       //     price: item.like_count,
+  //       //   };
+  //       //   arrRiviu.push(tem);
+  //       // });
+  //       // setReViu(arrRiviu);
+  //     })
+  //     .catch(() => {
+  //       setIsError(true);
+  //       setIsLoading(false);
+  //     });
+  // }, []);
+
   const [category, setCategory] = useState("ALL");
   const [allProducts, seeAllProducts] = useState(products);
 
   const [hotPizza, setHotPizza] = useState([]);
 
   useEffect(() => {
-    const filterPizza = products.filter((item) => (item.category === "Pizza"));
+    const filterPizza = products.filter((item) => item.category === "Pizza");
     const slicePizza = filterPizza.slice(0, 4);
     setHotPizza(slicePizza);
+  }, []);
+
+  const [reviu, setReViu] = useState([]);
+  useEffect(() => {
+    const filterRiviu = reviuu.slice(0, 4);
+    console.log("AAAAAAAAAAAAAA" + filterRiviu);
+    let arrRiviu = [];
+    filterRiviu.forEach((item) => {
+      let tem = {
+        id: item.uuid,
+        title: item.title,
+        image01: item.comment_count,
+        price: item.like_count,
+      };
+      arrRiviu.push(tem);
+    });
+    setReViu(arrRiviu);
   }, []);
 
   useEffect(() => {
@@ -86,6 +138,13 @@ const Home = () => {
       seeAllProducts(filterProducts);
     }
   }, [category]);
+
+  if (isLoading) {
+    return <h1>Loading</h1>;
+  }
+  if (isError) {
+    return <h1>Error</h1>;
+  }
 
   return (
     <Helmet title="Home">
@@ -222,7 +281,7 @@ const Home = () => {
               </div>
             </Col>
             {allProducts.map((item) => (
-              <Col lg="3" md="4" sm="6" xs='6' key={item.id} className="mt-5">
+              <Col lg="3" md="4" sm="6" xs="6" key={item.id} className="mt-5">
                 <ProductCard item={item} />
               </Col>
             ))}

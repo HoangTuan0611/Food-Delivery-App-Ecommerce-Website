@@ -71,13 +71,16 @@ const Footer = () => {
                 Follow: 
               </p>
               <span>
-                <Link to='https://www.facebook.com/profile.php?id=100006647792868'><i class="ri-facebook-line"></i></Link>
+                <a href="https://www.facebook.com/profile.php?id=100006647792868"><i class="ri-facebook-line"></i></a>
+                {/* <Link to='https://www.facebook.com/profile.php?id=100006647792868'><i class="ri-facebook-line"></i></Link> */}
               </span>
               <span>
-                <Link to='https://github.com/HoangTuan0611'><i class="ri-github-line"></i></Link>
+                {/* <Link to='https://github.com/HoangTuan0611'><i class="ri-github-line"></i></Link> */}
+                <a href="https://www.linkedin.com/in/hoangtuan99/"><i class="ri-linkedin-line"></i></a>
               </span>
               <span>
-                <Link to='https://www.youtube.com/channel/UCwrTzvZP4EZ8Jg2MkhEQUTw'><i class="ri-youtube-line"></i></Link>
+                {/* <Link to='https://www.youtube.com/channel/UCwrTzvZP4EZ8Jg2MkhEQUTw'><i class="ri-youtube-line"></i></Link> */}
+                <a href="https://www.youtube.com/channel/UCwrTzvZP4EZ8Jg2MkhEQUTw"><i class="ri-youtube-line"></i></a>
               </span>
             </div>
           </Col>
